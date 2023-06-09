@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Tshirt",
+        "imgUrl": "tshirt.png"
+    },
+    {
+        "name": "Hoodie",
+        "imgUrl": "hoodie.png"
+    },
+    {
+        "name": "Jacket",
+        "imgUrl": "jacket.png"
+    }
+]
