@@ -1,14 +1,14 @@
 [
     {
         "name": "Tshirt",
-        "imgUrl": "tshirt.png"
+        "image": "tshirt.png"
     },
     {
         "name": "Hoodie",
-        "imgUrl": "hoodie.png"
+        "image": "hoodie.png"
     },
     {
         "name": "Jacket",
-        "imgUrl": "jacket.png"
+        "image": "jacket.png"
     }
 ]

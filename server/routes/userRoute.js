@@ -1,8 +1,11 @@
+'use strict'
+
 const express = require('express')
 const router = express.Router()
 
-router.get('/', (req, res) => {
-    res.status(200).json('Hello From User')
-})
+const UserController = require('../controllers/userController')
+
+router.get('/users', UserController.userFindAll)
+router.post('/register', UserController.userCreate)
 
 module.exports = router

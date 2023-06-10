@@ -1,18 +1,38 @@
 [
     {
-        "username": "admin",
-        "email": "admin@mail.com",
-        "password": "admin",
-        "RoleId": 1,
-        "phoneNumber": "12345678",
-        "address": "Jakarta, Jl. Jawa 3 Blok J3 No.20"
+        "name": "JavaScript",
+        "description": "loremipsumc lorem merol",
+        "price": 56000,
+        "stock": 12,
+        "image": "javascript.png",
+        "CategoryId": 1,
+        "UserId": 1
     },
     {
-        "username": "sakirsyarian",
-        "email": "sakirsyarian@mail.com",
-        "password": "sakirsyarian",
-        "RoleId": 2,
-        "phoneNumber": "87654321",
-        "address": "Bandung, Jl. Sunatra 2 Blok K5 No.10"
+        "name": "Python",
+        "description": "loremipsumc lorem merol",
+        "price": 60000,
+        "stock": 15,
+        "image": "python.png",
+        "CategoryId": 1,
+        "UserId": 1
+    },
+    {
+        "name": "Hoodie PHP",
+        "description": "loremipsumc lorem merol",
+        "price": 125000,
+        "stock": 15,
+        "image": "hoodie-php.png",
+        "CategoryId": 2,
+        "UserId": 2
+    },
+    {
+        "name": "Jacket Ruby",
+        "description": "loremipsumc lorem merol",
+        "price": 110000,
+        "stock": 15,
+        "image": "jacket-ruby.png",
+        "CategoryId": 3,
+        "UserId": 2
     }
 ]
