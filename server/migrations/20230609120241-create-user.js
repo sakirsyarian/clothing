@@ -23,6 +23,12 @@ module.exports = {
       RoleId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: 'Roles',
+          key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
       phoneNumber: {
         type: Sequelize.STRING
