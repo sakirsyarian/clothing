@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty: {
           msg: "Email can't be empty"
+        },
+        isEmail: {
+          msg: "You must enter a valid email"
         }
       }
     },
@@ -38,7 +41,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty: {
           msg: "Username can't be empty"
-        }
+        },
+        len: {
+          args: [5, 20],
+          msg: 'Password must be between 5 and 20 characters'
+        },
       }
     },
     RoleId: {
