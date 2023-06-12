@@ -15,6 +15,10 @@ const errorHandler = (err, req, res, next) => {
         return statusCode(400, { message: msg })
     }
 
+    if (err.name === 'AuthenticationError') {
+        return statusCode(401, { message: err.message })
+    }
+
     return res.status(500).json(err)
     // return statusCode(500, { message: "Internal server error" })
 }
