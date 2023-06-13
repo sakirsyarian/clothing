@@ -17,7 +17,7 @@ export default {
     methods: {
         async postRegister() {
             try {
-                const { data: user } = await this.post("register", {
+                await this.post("register", {
                     email: this.register.email,
                     password: this.register.password,
                 });
@@ -39,6 +39,34 @@ export default {
                 console.log(error);
             }
         },
+        async handleCredentialResponse(response) {
+            try {
+                const { data: user } = await this.post("google", null, {
+                    google_token: response.credential,
+                });
+
+                localStorage.setItem("access_token", user.access_token);
+                localStorage.setItem("name", user.data.username);
+                this.$emit("change", "Home");
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        renderButton() {
+            google.accounts.id.initialize({
+                client_id:
+                    "72122631237-lknejvdtsjrildb7s32s208kr9g64dd0.apps.googleusercontent.com",
+                callback: this.handleCredentialResponse,
+            });
+
+            google.accounts.id.renderButton(
+                document.getElementById("buttonDiv"),
+                { theme: "outline", size: "large" }
+            );
+        },
+    },
+    mounted() {
+        this.renderButton();
     },
 };
 </script>
