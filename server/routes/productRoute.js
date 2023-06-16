@@ -3,8 +3,10 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/', (req, res) => {
-    res.status(200).json('Hello From Product')
-})
+const ProductController = require('../controllers/productController')
+
+router.get('/', ProductController.productFindAll)
+router.post('/', ProductController.productCreate)
+router.delete('/:id', ProductController.productDestroy)
 
 module.exports = router

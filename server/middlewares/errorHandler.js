@@ -19,6 +19,18 @@ const errorHandler = (err, req, res, next) => {
         return statusCode(401, { message: err.message })
     }
 
+    if (err.name === 'JsonWebTokenError') {
+        return statusCode(401, { message: 'Invalid token' })
+    }
+
+    if (err.name === 'TokenExpiredError') {
+        return statusCode(401, { message: 'Invalid token' })
+    }
+
+    if (err.name === 'NotFound') {
+        return statusCode(404, { message: err.message })
+    }
+
     return res.status(500).json(err)
     // return statusCode(500, { message: "Internal server error" })
 }
