@@ -33,7 +33,6 @@ class CategoryController {
     static async categoryDestroy(req, res, next) {
         try {
             const { id } = req.params
-            console.log(id, "<<< GOOD");
             const category = await Category.destroy({ where: { id } })
 
             if (!category) throw {

@@ -1,6 +1,6 @@
 'use strict'
 
-const { Product } = require('../models')
+const { User, Product } = require('../models')
 
 class ProductController {
     static async productFindAll(req, res, next) {
@@ -28,7 +28,6 @@ class ProductController {
                 data: product
             })
         } catch (error) {
-            console.log(error);
             next(error)
         }
     }
@@ -36,18 +35,25 @@ class ProductController {
     static async productDestroy(req, res, next) {
         try {
             const { id } = req.params
-            const product = await Product.destroy({ where: { id } })
+            const userId = req.user.id
 
+            const product = await Product.findByPk(id)
             if (!product) throw {
                 name: "NotFound",
                 message: "Data not found"
             }
 
+            if (userId === 2 && product.UserId !== 2) throw {
+                name: "AuthorizationError",
+                message: "You are not authorized to access this source"
+            }
+
+            await Product.destroy({ where: { id } })
+
             res.status(200).json({
                 status: "deleted",
             })
         } catch (error) {
-            console.log(error);
             next(error)
         }
     }

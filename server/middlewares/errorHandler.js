@@ -27,6 +27,10 @@ const errorHandler = (err, req, res, next) => {
         return statusCode(401, { message: 'Invalid token' })
     }
 
+    if (err.name === 'AuthorizationError') {
+        return statusCode(403, { message: err.message })
+    }
+
     if (err.name === 'NotFound') {
         return statusCode(404, { message: err.message })
     }
