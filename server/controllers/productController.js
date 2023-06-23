@@ -1,11 +1,11 @@
 'use strict'
 
-const { User, Product } = require('../models')
+const { Product, Category } = require('../models')
 
 class ProductController {
     static async productFindAll(req, res, next) {
         try {
-            const product = await Product.findAll()
+            const product = await Product.findAll({ include: [Category] })
 
             res.status(200).json({
                 status: "ok",

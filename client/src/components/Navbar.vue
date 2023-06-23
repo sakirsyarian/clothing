@@ -1,6 +1,6 @@
 <script>
 export default {
-    emits: ["change-page"],
+    emits: ["change"],
 };
 </script>
 
@@ -10,7 +10,7 @@ export default {
             <a
                 class="text-2xl"
                 href=""
-                @click.prevent="this.$emit('change-page', 'dashboard')"
+                @click.prevent="this.$emit('change', 'Home')"
             >
                 ELGO
             </a>
@@ -18,10 +18,7 @@ export default {
 
         <ul class="flex gap-10 font-medium">
             <li>
-                <a
-                    href=""
-                    @click.prevent="this.$emit('change-page', 'dashboard')"
-                >
+                <a href="" @click.prevent="this.$emit('change', 'Home')">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -39,7 +36,7 @@ export default {
                 </a>
             </li>
             <li>
-                <a href="" @click.prevent="this.$emit('change-page', 'post')">
+                <a href="" @click.prevent="this.$emit('change', 'Product')">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -57,10 +54,7 @@ export default {
                 </a>
             </li>
             <li>
-                <a
-                    href=""
-                    @click.prevent="this.$emit('change-page', 'category')"
-                >
+                <a href="" @click.prevent="this.$emit('change', 'Category')">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

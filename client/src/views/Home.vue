@@ -8,13 +8,49 @@ export default {
         Sidebar,
     },
     emits: ["change"],
-    props: ["changePage"],
+    props: ["changePage", "get"],
+    data() {
+        return {
+            categories: [],
+            products: [],
+        };
+    },
+    methods: {
+        async getCategories() {
+            try {
+                const access_token = localStorage.getItem("access_token");
+                const { data: categories } = await this.get("categories", {
+                    access_token,
+                });
+
+                this.categories = categories.data;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async getProducts() {
+            try {
+                const access_token = localStorage.getItem("access_token");
+                const { data: products } = await this.get("products", {
+                    access_token,
+                });
+
+                this.products = products.data;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+    },
+    mounted() {
+        this.getCategories();
+        this.getProducts();
+    },
 };
 </script>
 
 <template>
     <header class="mx-auto top-0 z-10 container sticky bg-white">
-        <Navbar />
+        <Navbar @change="changePage" />
     </header>
 
     <main class="mx-auto container">
@@ -32,17 +68,15 @@ export default {
                                 <p
                                     class="mb-2 text-center font-semibold text-3xl"
                                 >
-                                    11
-                                    <!-- {{ postings.length }} -->
+                                    {{ products.length }}
                                 </p>
-                                <p class="text-gray-500">Total Postings</p>
+                                <p class="text-gray-500">Total Products</p>
                             </div>
                             <div class="px-8 py-5 border-2 rounded-lg">
                                 <p
                                     class="mb-2 text-center font-semibold text-3xl"
                                 >
-                                    27
-                                    <!-- {{ categories.length }} -->
+                                    {{ categories.length }}
                                 </p>
                                 <p class="text-gray-500">Total Categories</p>
                             </div>

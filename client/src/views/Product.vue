@@ -11,28 +11,28 @@ export default {
     props: ["changePage", "get", "delete"],
     data() {
         return {
-            categories: [],
+            products: [],
         };
     },
     methods: {
-        async getCategories() {
+        async getProducts() {
             try {
                 const access_token = localStorage.getItem("access_token");
-                const { data: categories } = await this.get("categories", {
+                const { data: products } = await this.get("products", {
                     access_token,
                 });
 
-                this.categories = categories.data;
+                this.products = products.data;
             } catch (error) {
                 console.log(error);
             }
         },
-        async deleteCategory(id) {
+        async deleteProduct(id) {
             try {
-                localStorage.setItem("page", "Category");
+                localStorage.setItem("page", "Product");
 
                 const access_token = localStorage.getItem("access_token");
-                await this.delete(`categories/${id}`, {
+                await this.delete(`products/${id}`, {
                     access_token,
                 });
             } catch (error) {
@@ -40,8 +40,8 @@ export default {
             }
         },
         localDate(index) {
-            const dateFormat = this.categories.map((category) => {
-                const date = new Date(category.createdAt);
+            const dateFormat = this.products.map((product) => {
+                const date = new Date(product.createdAt);
 
                 return date.toLocaleDateString("id-ID", {
                     weekday: "long",
@@ -55,7 +55,7 @@ export default {
         },
     },
     mounted() {
-        this.getCategories();
+        this.getProducts();
     },
 };
 </script>
@@ -71,14 +71,14 @@ export default {
 
             <div class="col-span-4 border-t-2 border-gray-50">
                 <div class="col-span-4 grid gap-12 padding-section">
-                    <!-- start: Category -->
+                    <!-- start: Product -->
                     <section class="px-12">
                         <div class="flex justify-between">
-                            <h2 class="font-bold text-3xl">Categories</h2>
+                            <h2 class="font-bold text-3xl">Products</h2>
                             <button
-                                @click="this.$emit('change', 'Category Add')"
                                 type="button"
                                 class="px-3 py-2 flex items-center button-add"
+                                @click="this.$emit('change', 'Product Add')"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,7 @@ export default {
                                     class="w-5 h-5"
                                 >
                                     <path
-                                        stroke-linecap="round"
+                                        strbaseUrloke-linecap="round"
                                         stroke-linejoin="round"
                                         d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
                                     />
@@ -110,7 +110,16 @@ export default {
                                             No
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Title
+                                            Name
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Price
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Stock
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Category
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             Created
@@ -121,17 +130,26 @@ export default {
                                 <tbody>
                                     <tr
                                         class="bg-white border-b"
-                                        v-for="(category, index) in categories"
-                                        :key="category.id"
+                                        v-for="(product, index) in products"
+                                        :key="product.id"
                                     >
                                         <td class="px-6 py-4">
                                             {{ index + 1 }}
                                         </td>
-                                        <td
+                                        <th
                                             scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                         >
-                                            {{ category.name }}
+                                            {{ product.name }}
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{ product.price }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ product.stock }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ product.Category.name }}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ localDate(index) }}
@@ -139,10 +157,10 @@ export default {
                                         <td class="px-6 py-4">
                                             <a
                                                 href=""
-                                                @click="
-                                                    deleteCategory(category.id)
-                                                "
                                                 class="font-medium text-red-600"
+                                                @click="
+                                                    deleteProduct(product.id)
+                                                "
                                             >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +183,7 @@ export default {
                             </table>
                         </div>
                     </section>
-                    <!-- end: Category -->
+                    <!-- end: Product -->
                 </div>
             </div>
         </div>
