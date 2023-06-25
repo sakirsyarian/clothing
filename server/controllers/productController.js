@@ -32,6 +32,49 @@ class ProductController {
         }
     }
 
+    static async productUpdate(req, res, next) {
+        try {
+            const { id } = req.params
+            const { name, description, price, stock, image, status, CategoryId } = req.body
+
+            const product = await Product.update(
+                { name, description, price, stock, image, status, CategoryId },
+                { where: { id }, returning: true, }
+            )
+            console.log(product[1]);
+
+            res.status(200).json({
+                status: "updated",
+                data: product[1]
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async productPatch(req, res, next) {
+        try {
+            const { id } = req.params
+            const { status } = req.body
+            const { id: userId } = req.user
+
+            if (userId !== 1) throw {
+                name: "AuthorizationError",
+                message: "You are not authorized to access this source"
+            }
+
+            const product = await Product.update({ status }, { where: { id }, returning: true, })
+            res.status(200).json({
+                status: "updated",
+                data: {
+                    status: product[1][0].status
+                }
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
     static async productDestroy(req, res, next) {
         try {
             const { id } = req.params

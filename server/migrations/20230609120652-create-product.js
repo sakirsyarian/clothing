@@ -27,6 +27,10 @@ module.exports = {
       image: {
         type: Sequelize.STRING
       },
+      status: {
+        type: Sequelize.STRING,
+        defaultValue: 'Active'
+      },
       CategoryId: {
         type: Sequelize.INTEGER,
         allowNull: false,
