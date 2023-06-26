@@ -34,7 +34,6 @@ export default {
 
                 localStorage.setItem("access_token", user.access_token);
                 localStorage.setItem("name", user.data.username);
-                localStorage.setItem("page", "Home");
                 this.$emit("change", "Home");
             } catch (error) {
                 console.log(error);
@@ -48,7 +47,6 @@ export default {
 
                 localStorage.setItem("access_token", user.access_token);
                 localStorage.setItem("name", user.data.username);
-                localStorage.setItem("page", "Home");
                 this.$emit("change", "Home");
             } catch (error) {
                 console.log(error);

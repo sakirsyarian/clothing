@@ -29,8 +29,6 @@ export default {
         },
         async deleteProduct(id) {
             try {
-                localStorage.setItem("page", "Product");
-
                 const access_token = localStorage.getItem("access_token");
                 await this.delete(`products/${id}`, {
                     access_token,

@@ -5,7 +5,7 @@ const { Category, Product, User, History } = require('../models')
 class ProductController {
     static async historyFindAll(req, res, next) {
         try {
-            const history = await History.findAll()
+            const history = await History.findAll({ order: [['id', 'DESC']] })
 
             res.status(200).json({
                 status: "ok",

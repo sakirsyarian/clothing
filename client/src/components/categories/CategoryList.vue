@@ -1,13 +1,11 @@
 <script>
-import axios from "axios";
-
 export default {
-    emits: ["change-page"],
-    props: ["postings"],
+    emits: ["change-category"],
+    props: ["categories", "deleteCategory"],
     methods: {
         localDate(index) {
-            const dateFormat = this.postings.map((post) => {
-                const date = new Date(post.createdAt);
+            const dateFormat = this.categories.map((category) => {
+                const date = new Date(category.createdAt);
 
                 return date.toLocaleDateString("id-ID", {
                     weekday: "long",
@@ -26,11 +24,11 @@ export default {
 <template>
     <section class="px-12">
         <div class="flex justify-between">
-            <h2 class="font-bold text-3xl">Postings</h2>
+            <h2 class="font-bold text-3xl">Categories</h2>
             <button
+                @click="this.$emit('change-category', 'add')"
                 type="button"
                 class="px-3 py-2 flex items-center button-add"
-                @click="this.$emit('change-page', 'post add')"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +39,7 @@ export default {
                     class="w-5 h-5"
                 >
                     <path
-                        strbaseUrloke-linecap="round"
+                        stroke-linecap="round"
                         stroke-linejoin="round"
                         d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
                     />
@@ -56,8 +54,6 @@ export default {
                     <tr>
                         <th scope="col" class="px-6 py-3">No</th>
                         <th scope="col" class="px-6 py-3">Title</th>
-                        <th scope="col" class="px-6 py-3">Author</th>
-                        <th scope="col" class="px-6 py-3">Category</th>
                         <th scope="col" class="px-6 py-3">Created</th>
                         <th scope="col" class="px-6 py-3"></th>
                     </tr>
@@ -65,21 +61,27 @@ export default {
                 <tbody>
                     <tr
                         class="bg-white border-b"
-                        v-for="(post, index) in postings"
-                        :key="post.id"
+                        v-for="(category, index) in categories"
+                        :key="category.id"
                     >
-                        <td class="px-6 py-4">{{ index + 1 }}</td>
-                        <th
+                        <td class="px-6 py-4">
+                            {{ index + 1 }}
+                        </td>
+                        <td
                             scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                         >
-                            {{ post.title }}
-                        </th>
-                        <td class="px-6 py-4">{{ post.User.username }}</td>
-                        <td class="px-6 py-4">{{ post.Category.name }}</td>
-                        <td class="px-6 py-4">{{ localDate(index) }}</td>
+                            {{ category.name }}
+                        </td>
                         <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-red-600">
+                            {{ localDate(index) }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <a
+                                href=""
+                                @click.prevent="deleteCategory(category.id)"
+                                class="font-medium text-red-600"
+                            >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"

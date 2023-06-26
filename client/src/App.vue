@@ -4,7 +4,6 @@ import axios from "axios";
 import Auth from "./views/Auth.vue";
 import Home from "./views/Home.vue";
 import Category from "./views/Category.vue";
-import CategoryAdd from "./views/CategoryPlus.vue";
 import Product from "./views/Product.vue";
 import ProductAdd from "./views/ProductPlus.vue";
 
@@ -13,7 +12,6 @@ export default {
         Auth,
         Home,
         Category,
-        CategoryAdd,
         Product,
         ProductAdd,
     },
@@ -52,9 +50,8 @@ export default {
     },
     mounted() {
         const storage = localStorage.getItem("access_token");
-        const page = localStorage.getItem("page");
         if (storage) {
-            this.page = page;
+            this.page = "Home";
         }
     },
 };
@@ -71,19 +68,15 @@ export default {
     <Category
         v-else-if="page === 'Category'"
         :get="getAjax"
-        :delete="deleteAjax"
-        @change="changePage"
-        :changePage="changePage"
-    />
-    <CategoryAdd
-        v-else-if="page === 'Category Add'"
         :post="postAjax"
+        :delete="deleteAjax"
         @change="changePage"
         :changePage="changePage"
     />
     <Product
         v-else-if="page === 'Product'"
         :get="getAjax"
+        :post="postAjax"
         :delete="deleteAjax"
         @change="changePage"
         :changePage="changePage"
