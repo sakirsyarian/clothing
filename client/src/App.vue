@@ -5,7 +5,6 @@ import Auth from "./views/Auth.vue";
 import Home from "./views/Home.vue";
 import Category from "./views/Category.vue";
 import Product from "./views/Product.vue";
-import ProductAdd from "./views/ProductPlus.vue";
 
 export default {
     components: {
@@ -13,7 +12,6 @@ export default {
         Home,
         Category,
         Product,
-        ProductAdd,
     },
     data() {
         return {
@@ -78,13 +76,6 @@ export default {
         :get="getAjax"
         :post="postAjax"
         :delete="deleteAjax"
-        @change="changePage"
-        :changePage="changePage"
-    />
-    <ProductAdd
-        v-else-if="page === 'Product Add'"
-        :get="getAjax"
-        :post="postAjax"
         @change="changePage"
         :changePage="changePage"
     />
