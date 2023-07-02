@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 
 router.use(userRoute)
 router.use(auth) // authentication
-router.use('/products', useProduct)
+router.use(useProduct)
 router.use('/categories', useCategory)
 router.use('/histories', useHistory)
 

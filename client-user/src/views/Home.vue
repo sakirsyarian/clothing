@@ -1,6 +1,10 @@
 <script>
+import Card from '../components/Card.vue'
+import Pagination from '../components/Pagination.vue'
+import Search from '../components/Search.vue'
+
 export default {
-    props: ["msg"],
+    components: { Card, Pagination, Search },
     data() {
         return {
             count: 0,
@@ -10,10 +14,22 @@ export default {
 </script>
 
 <template>
-    <div class="m-5 relative">
-        <h1>{{ msg }}</h1>
-        <button class="p-2 rounded bg-green-400" type="button" @click="count++">
-            count is {{ count }}
-        </button>
-    </div>
+    <section class="container">
+        <div class="grid grid-cols-12 gap-8">
+            <div class="col-span-3">
+                <Search />
+            </div>
+
+            <div class="col-span-9">
+                <div class="grid grid-cols-3 gap-3">
+                    <Card />
+                    <Card />
+                    <Card />
+                </div>
+
+                <Pagination />
+            </div>
+        </div>
+
+    </section>
 </template>

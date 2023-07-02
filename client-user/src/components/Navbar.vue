@@ -10,7 +10,7 @@ export default {
 
 <template>
     <nav class="bg-white w-full z-20 top-0 left-0 border-b border-gray-200">
-        <div class="container">
+        <div class="navbar">
             <router-link to="/" class="flex items-center">
                 <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="Flowbite Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap">Flowbite</span>
@@ -44,6 +44,16 @@ export default {
                     <li>
                         <router-link to="/about" class="nav-link">
                             About
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/about" class="nav-link">
+                            Services
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/about" class="nav-link">
+                            Contact
                         </router-link>
                     </li>
                 </ul>

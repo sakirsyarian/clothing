@@ -14,8 +14,10 @@ class UserController {
 
     static async userCreate(req, res, next) {
         try {
+            let userRole = (req.url === '/customer/signup') ? 2 : 1
             const { username, email, password, phoneNumber, address } = req.body
-            await User.create({ username, email, password, RoleId: 1, phoneNumber, address })
+
+            await User.create({ username, email, password, RoleId: userRole, phoneNumber, address })
 
             res.status(201).json({
                 status: "created",

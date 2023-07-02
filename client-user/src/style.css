@@ -4,6 +4,9 @@
 
 @layer components {
     .container {
+        @apply max-w-screen-xl mx-auto px-4 py-10
+    }
+    .navbar {
         @apply max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4
     }
     .nav {

@@ -1,5 +1,6 @@
 'use strict'
 
+const { Op } = require('sequelize')
 const { Category, Product, User, History } = require('../models')
 
 class ProductController {
@@ -128,6 +129,59 @@ class ProductController {
 
             res.status(200).json({
                 status: "deleted",
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async customerProductFindAll(req, res, next) {
+        try {
+            const { search } = req.query
+            let limit = +req.query.limit
+            let page = +req.query.page
+
+            if (!limit) limit = 2
+            if (!page) page = 1
+
+            const start = 0 + (page - 1) * limit
+            const end = page * limit
+
+            const option = {}
+            if (search) {
+                option.name = { [Op.iLike]: `%${search}%` }
+            }
+
+            const product = await Product.findAndCountAll({
+                include: [Category],
+                where: option,
+                offset: start,
+                limit
+            })
+
+            const pagination = {
+                count: product.count,
+                totalPage: Math.ceil(product.count / limit)
+            }
+
+            if (end < product.count) {
+                pagination.next = {
+                    page: page + 1,
+                    limit
+                }
+            }
+
+            if (start > 0) {
+                pagination.prev = {
+                    page: page - 1,
+                    limit
+                }
+            }
+
+            res.status(200).json({
+                status: "ok",
+                pagination,
+                data: product.rows
             })
         } catch (error) {
             next(error)
