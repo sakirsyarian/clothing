@@ -4,7 +4,7 @@
         "description": "loremipsumc lorem merol",
         "price": 56000,
         "stock": 12,
-        "image": "javascript.png",
+        "image": "js.png",
         "CategoryId": 1,
         "UserId": 1
     },
@@ -13,26 +13,26 @@
         "description": "loremipsumc lorem merol",
         "price": 60000,
         "stock": 15,
-        "image": "python.png",
+        "image": "py.png",
         "CategoryId": 1,
         "UserId": 1
     },
     {
-        "name": "Hoodie PHP",
+        "name": "PHP",
         "description": "loremipsumc lorem merol",
         "price": 125000,
         "stock": 15,
-        "image": "hoodie-php.png",
-        "CategoryId": 2,
+        "image": "ph.png",
+        "CategoryId": 1,
         "UserId": 2
     },
     {
-        "name": "Jacket Ruby",
+        "name": "Vue",
         "description": "loremipsumc lorem merol",
         "price": 110000,
         "stock": 15,
-        "image": "jacket-ruby.png",
-        "CategoryId": 3,
+        "image": "vu.png",
+        "CategoryId": 1,
         "UserId": 2
     }
 ]
