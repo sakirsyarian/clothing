@@ -42,14 +42,16 @@ export default {
 <template>
     <p v-if="!products.length" class="font-semibold text-xl text-red-500">404 Not Found!</p>
     <div v-for="product in products" :key="product.id" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
-        <a href="#">
+        <router-link :to="'/detail/' + product.id">
             <img class="rounded-t-lg" :src="'/img/' + product.image" alt="" />
-        </a>
+        </router-link>
         <div class="p-5">
             <div class="flex justify-between">
-                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900">
-                    {{ product.name }}
-                </h5>
+                <router-link :to="'/detail/' + product.id">
+                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900">
+                        {{ product.name }}
+                    </h5>
+                </router-link>
                 <button @click="makeBook(product.id)">
                     <svg :id="product.id" class="w-5 h-5 text-gray-800" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 20">
@@ -59,7 +61,7 @@ export default {
                 </button>
             </div>
             <p class="mb-3 font-normal text-gray-700">
-                Here are the biggest enterprise technology
+                {{ product.description }}
             </p>
             <p class="font-medium text-green-400"> {{ formatCurrency(product.price) }}</p>
         </div>

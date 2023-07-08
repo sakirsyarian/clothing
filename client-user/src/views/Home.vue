@@ -39,6 +39,7 @@ export default {
             </div>
 
             <div class="col-span-3">
+                <p class="mb-3 font-semibold">Search :</p>
                 <Search />
             </div>
         </div>

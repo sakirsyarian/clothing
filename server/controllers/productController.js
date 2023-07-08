@@ -32,6 +32,20 @@ class ProductController {
         }
     }
 
+    static async productDetail(req, res, next) {
+        try {
+            const { id } = req.params
+            const product = await Product.findByPk(id)
+
+            res.status(200).json({
+                status: "ok",
+                data: product
+            })
+        } catch (error) {
+            next(error)
+        }
+    } productDetail
+
     static async productCreate(req, res, next) {
         try {
             const { id } = req.user
