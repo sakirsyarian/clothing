@@ -20,8 +20,8 @@
     {
         "name": "PHP",
         "description": "loremipsumc lorem merol",
-        "price": 125000,
-        "stock": 15,
+        "price": 58000,
+        "stock": 10,
         "image": "ph.png",
         "CategoryId": 1,
         "UserId": 2
@@ -29,9 +29,45 @@
     {
         "name": "Vue",
         "description": "loremipsumc lorem merol",
-        "price": 110000,
-        "stock": 15,
+        "price": 55000,
+        "stock": 11,
         "image": "vu.png",
+        "CategoryId": 1,
+        "UserId": 2
+    },
+    {
+        "name": "Java",
+        "description": "loremipsumc lorem merol",
+        "price": 51000,
+        "stock": 12,
+        "image": "jv.png",
+        "CategoryId": 1,
+        "UserId": 2
+    },
+    {
+        "name": "Go",
+        "description": "loremipsumc lorem merol",
+        "price": 53000,
+        "stock": 7,
+        "image": "go.png",
+        "CategoryId": 1,
+        "UserId": 2
+    },
+    {
+        "name": "React",
+        "description": "loremipsumc lorem merol",
+        "price": 59000,
+        "stock": 18,
+        "image": "rt.png",
+        "CategoryId": 1,
+        "UserId": 2
+    },
+    {
+        "name": "Node",
+        "description": "loremipsumc lorem merol",
+        "price": 57000,
+        "stock": 16,
+        "image": "nj.png",
         "CategoryId": 1,
         "UserId": 2
     }

@@ -19,7 +19,9 @@ class ProductController {
 
     static async productFindAll(req, res, next) {
         try {
-            const product = await Product.findAll({ include: [Category], order: [['id']] })
+            const product = await Product.findAll({
+                include: [Category], order: [['id']]
+            })
 
             res.status(200).json({
                 status: "ok",
@@ -141,13 +143,13 @@ class ProductController {
             let limit = +req.query.limit
             let page = +req.query.page
 
-            if (!limit) limit = 2
+            if (!limit) limit = 4
             if (!page) page = 1
 
             const start = 0 + (page - 1) * limit
             const end = page * limit
 
-            const option = {}
+            const option = { status: 'Active' }
             if (search) {
                 option.name = { [Op.iLike]: `%${search}%` }
             }
@@ -155,6 +157,7 @@ class ProductController {
             const product = await Product.findAndCountAll({
                 include: [Category],
                 where: option,
+                order: [['id']],
                 offset: start,
                 limit
             })

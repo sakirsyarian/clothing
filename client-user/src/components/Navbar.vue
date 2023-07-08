@@ -5,6 +5,12 @@ export default {
     mounted() {
         initDropdowns();
     },
+    methods: {
+        signOut() {
+            localStorage.clear()
+            this.$router.push('/signin')
+        }
+    }
 };
 </script>
 
@@ -17,9 +23,9 @@ export default {
             </router-link>
 
             <div class="flex md:order-2">
-                <router-link to="/signin" class="btn-login">
-                    Sign in
-                </router-link>
+                <button @click="signOut()" class="btn-login">
+                    Sign out
+                </button>
 
                 <button data-collapse-toggle="navbar-sticky" type="button" class="btn-ham" aria-controls="navbar-sticky"
                     aria-expanded="false">

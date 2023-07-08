@@ -1,6 +1,5 @@
 <script>
-import { mapActions } from 'pinia'
-import useRequestStore from '../stores/request';
+import { postAjax } from '../helpers/ajax'
 
 export default {
     data() {
@@ -10,11 +9,9 @@ export default {
         }
     },
     methods: {
-        ...mapActions(useRequestStore, ['postAjax']),
         async handlerSubmit() {
             try {
-                const access_token = localStorage.getItem('access_token')
-                const { data: user } = await this.postAjax('customer/signup', access_token,
+                await postAjax('customer/signup', null,
                     { email: this.email, password: this.password })
 
                 this.$router.push('/signin')

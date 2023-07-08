@@ -4,8 +4,10 @@ import { getAjax } from '../helpers/ajax'
 const useProductStore = defineStore('product', {
     state: () => {
         return {
+            search: '',
             products: [],
-            search: ''
+            bookmark: [],
+            pagination: {}
         }
     },
     actions: {
@@ -13,11 +15,12 @@ const useProductStore = defineStore('product', {
             try {
                 const access_token = localStorage.getItem('access_token')
                 const { data: product } = await getAjax(
-                    'products',
+                    'customers/products',
                     { access_token },
                 )
 
                 this.products = product.data
+                this.pagination = product.pagination
             } catch (error) {
                 console.log(error);
             }
