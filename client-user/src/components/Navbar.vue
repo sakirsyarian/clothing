@@ -53,8 +53,8 @@ export default {
                         </router-link>
                     </li>
                     <li>
-                        <router-link to="/about" class="nav-link">
-                            Services
+                        <router-link to="/favorite" class="nav-link">
+                            Favorite
                         </router-link>
                     </li>
                     <li>

@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Detail from '../views/Detail.vue'
 import About from '../views/About.vue'
+import Favorite from '../views/Favorite.vue'
 import SignIn from '../views/SignIn.vue'
 import SignUp from '../views/SignUp.vue'
 import NotFound from '../views/NotFound.vue'
@@ -43,6 +44,11 @@ const routes = [
                 path: 'about',
                 name: 'About',
                 component: About
+            },
+            {
+                path: 'favorite',
+                name: 'Favorite',
+                component: Favorite
             }
         ]
     },

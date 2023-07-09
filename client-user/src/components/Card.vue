@@ -8,12 +8,18 @@ export default {
         ...mapWritableState(useProductStore, ['bookmark'])
     },
     methods: {
-        makeBook(value) {
+        makeBook(value, index) {
             const svg = document.getElementById(value)
             const getFill = svg.getAttribute('fill')
 
             if (getFill === 'none') {
-                this.bookmark.push({ id: value })
+                this.bookmark.push({
+                    id: value,
+                    name: this.products[index].name,
+                    image: this.products[index].image,
+                    description: this.products[index].description,
+                    price: this.products[index].price,
+                })
                 return svg.setAttribute('fill', 'currentColor')
             }
 
@@ -41,7 +47,8 @@ export default {
 
 <template>
     <p v-if="!products.length" class="font-semibold text-xl text-red-500">404 Not Found!</p>
-    <div v-for="product in products" :key="product.id" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+    <div v-for="(product, index) in products" :key="product.id"
+        class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
         <router-link :to="'/detail/' + product.id">
             <img class="rounded-t-lg" :src="'/img/' + product.image" alt="" />
         </router-link>
@@ -52,7 +59,7 @@ export default {
                         {{ product.name }}
                     </h5>
                 </router-link>
-                <button @click="makeBook(product.id)">
+                <button @click="makeBook(product.id, index)">
                     <svg :id="product.id" class="w-5 h-5 text-gray-800" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
