@@ -4,7 +4,7 @@ const request = require('supertest')
 const { sequelize } = require('../models')
 const { queryInterface } = sequelize
 
-const access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg4MjkyMTQxLCJleHAiOjE2ODgzNzg1NDF9.SSqQ6LlVuXPUvr9CuXyPPGGlxfJuLxFiUadoYmLHt8M'
+const access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg4ODk2MTc4LCJleHAiOjE2ODg5ODI1Nzh9.Vleig6FPEKkUAe9z30oeA7jhu8VkTJNr2Ss5psT2FKo'
 
 afterAll(() => {
     queryInterface.bulkDelete(

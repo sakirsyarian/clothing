@@ -12,7 +12,7 @@ export default {
         ProductAdd,
     },
     emits: ["change"],
-    props: ["changePage", "get", "post", "delete"],
+    props: ["changePage", "get", "post", "patch", "delete"],
     data() {
         return {
             products: [],
@@ -65,19 +65,10 @@ export default {
 
             <div class="col-span-4 border-t-2 border-gray-50">
                 <div class="col-span-4 grid gap-12 padding-section">
-                    <ProductList
-                        v-if="pageProduct === 'list'"
-                        :products="products"
-                        :deleteProduct="deleteProduct"
-                        @change-product="changeProduct"
-                    />
-                    <ProductAdd
-                        v-else-if="pageProduct === 'add'"
-                        :get="get"
-                        :post="post"
-                        :getProducts="getProducts"
-                        @change-product="changeProduct"
-                    />
+                    <ProductList v-if="pageProduct === 'list'" :patch="patch" :products="products"
+                        :getProducts="getProducts" :deleteProduct="deleteProduct" @change-product="changeProduct" />
+                    <ProductAdd v-else-if="pageProduct === 'add'" :get="get" :post="post" :getProducts="getProducts"
+                        @change-product="changeProduct" />
                 </div>
             </div>
         </div>
