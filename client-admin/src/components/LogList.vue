@@ -38,6 +38,7 @@ export default {
                     </tr>
                 </thead>
                 <tbody>
+                    <p v-if="!logs.length" class="py-5 font-semibold text-lg text-red-500">Data is empty!</p>
                     <tr class="bg-white border-b" v-for="(log, index) in logs" :key="log.id">
                         <td class="px-6 py-4">
                             {{ index + 1 }}

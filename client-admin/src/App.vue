@@ -45,6 +45,14 @@ export default {
                 headers,
             });
         },
+        putAjax(url, data, headers) {
+            return axios({
+                method: "PUT",
+                url: `${this.base}${url}`,
+                data,
+                headers,
+            });
+        },
         deleteAjax(url, headers) {
             return axios({
                 method: "DELETE",
@@ -70,7 +78,7 @@ export default {
     <Home v-else-if="page === 'Home'" :get="getAjax" @change="changePage" :changePage="changePage" />
     <Category v-else-if="page === 'Category'" :get="getAjax" :post="postAjax" :delete="deleteAjax" @change="changePage"
         :changePage="changePage" />
-    <Product v-else-if="page === 'Product'" :get="getAjax" :post="postAjax" :patch="patchAjax" :delete="deleteAjax"
-        @change="changePage" :changePage="changePage" />
+    <Product v-else-if="page === 'Product'" :get="getAjax" :post="postAjax" :patch="patchAjax" :put="putAjax"
+        :delete="deleteAjax" @change="changePage" :changePage="changePage" />
     <Log v-else-if="page === 'Log'" :get="getAjax" @change="changePage" :changePage="changePage" />
 </template>

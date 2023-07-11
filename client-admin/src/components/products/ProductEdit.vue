@@ -1,15 +1,11 @@
 <script>
 export default {
     emits: ["change-product"],
-    props: ["get", "post", "getProducts"],
+    props: ["get", "put", "product", "getProducts"],
     data() {
         return {
             categories: [],
-            name: "",
-            description: "",
-            price: "",
-            stock: "",
-            category: "",
+            category: 0,
         };
     },
     methods: {
@@ -25,17 +21,20 @@ export default {
                 console.log(error);
             }
         },
+        selectedCategory() {
+            this.category = this.product.CategoryId
+        },
         async handlerSubmit() {
             try {
                 const access_token = localStorage.getItem("access_token");
-                await this.post(
-                    "products",
+                await this.put(
+                    `products/${this.product.id}`,
                     {
-                        name: this.name,
-                        description: this.description,
-                        price: this.price,
-                        stock: this.stock,
-                        CategoryId: this.category,
+                        name: this.product.name,
+                        description: this.product.description,
+                        price: this.product.price,
+                        stock: this.product.stock,
+                        CategoryId: this.category
                     },
                     { access_token }
                 );
@@ -49,6 +48,7 @@ export default {
     },
     mounted() {
         this.getCategories();
+        this.selectedCategory()
     },
 };
 </script>
@@ -66,36 +66,34 @@ export default {
             <form @submit.prevent="handlerSubmit()">
                 <div class="mb-6">
                     <label for="title" class="label-form">Name </label>
-                    <input v-model="name" type="text" name="name" class="input-form" placeholder="Enter name ..." />
+                    <input type="text" name="name" class="input-form" v-model="product.name" />
                 </div>
                 <div class="mb-6">
                     <label for="imgUrl" class="label-form">Price </label>
-                    <input v-model="price" type="number" name="price" class="input-form" placeholder="Enter price ..." />
+                    <input type="number" name="price" class="input-form" v-model="product.price" />
                 </div>
                 <div class="mb-6">
                     <label for="imgUrl" class="label-form">Stock </label>
-                    <input v-model="stock" type="number" name="stock" class="input-form" placeholder="Enter stock ..." />
+                    <input type="number" name="stock" class="input-form" v-model="product.stock" />
                 </div>
                 <div class="mb-6">
                     <label for="AuthorId" class="label-form">
                         Categories
                     </label>
                     <select name="CategoryId" class="input-select" v-model="category">
-                        <option value="" disabled selected>Category</option>
-                        <option v-for="category in categories" :key="category.id" :value="category.id">
-                            {{ category.name }}
-                        </option>
+                        <template v-for="category in categories" :key="category.id">
+                            <option :value="category.id">{{ category.name }}</option>
+                        </template>
                     </select>
                 </div>
                 <div class="mb-6">
                     <label for="content" class="label-form">
                         Description
                     </label>
-                    <textarea v-model="description" name="description" rows="4" class="input-textarea"
-                        placeholder="Leave a description ..."></textarea>
+                    <textarea name="description" v-model="product.description" rows="4" class="input-textarea"></textarea>
                 </div>
                 <button type="submit" class="button-form">
-                    Add New Product
+                    Update Product
                 </button>
             </form>
         </div>
