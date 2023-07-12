@@ -40,6 +40,7 @@ export default {
                 );
 
                 this.getProducts();
+                this.$toast.success('Product updated', { position: 'top-right' })
                 this.$emit("change-product", "list");
             } catch (error) {
                 console.log(error);

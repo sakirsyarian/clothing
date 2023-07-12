@@ -20,11 +20,12 @@ class ProductController {
     static async productFindAll(req, res, next) {
         try {
             const product = await Product.findAll({
-                include: [Category], order: [['id']]
+                include: [Category, User], order: [['id']]
             })
 
             res.status(200).json({
                 status: "ok",
+                user: req.user,
                 data: product
             })
         } catch (error) {

@@ -63,6 +63,14 @@ export default {
         changePage(value) {
             return (this.page = value);
         },
+        errorMessage(value) {
+            const errorMessage = value.response.data.message
+            this.$toast.error(errorMessage, { position: 'top-right' })
+
+            if (value.response.status === 401) {
+                this.page = 'Auth'
+            }
+        },
     },
     mounted() {
         const storage = localStorage.getItem("access_token");
@@ -75,10 +83,11 @@ export default {
 
 <template>
     <Auth v-if="page === 'Auth'" :post="postAjax" @change="changePage" />
-    <Home v-else-if="page === 'Home'" :get="getAjax" @change="changePage" :changePage="changePage" />
+    <Home v-else-if="page === 'Home'" :get="getAjax" @change="changePage" :changePage="changePage"
+        :errorMessage="errorMessage" />
     <Category v-else-if="page === 'Category'" :get="getAjax" :post="postAjax" :delete="deleteAjax" @change="changePage"
         :changePage="changePage" />
     <Product v-else-if="page === 'Product'" :get="getAjax" :post="postAjax" :patch="patchAjax" :put="putAjax"
-        :delete="deleteAjax" @change="changePage" :changePage="changePage" />
+        :delete="deleteAjax" @change="changePage" :changePage="changePage" :errorMessage="errorMessage" />
     <Log v-else-if="page === 'Log'" :get="getAjax" @change="changePage" :changePage="changePage" />
 </template>

@@ -53,6 +53,7 @@ class UserController {
                 status: "ok",
                 access_token,
                 data: {
+                    id: user.id,
                     username: user.username,
                     email: user.email,
                 }

@@ -15,6 +15,7 @@ export default {
     props: ["changePage", "get", "post", "delete"],
     data() {
         return {
+            loading: false,
             categories: [],
             pageCategory: "list",
         };
@@ -25,6 +26,7 @@ export default {
         },
         async getCategories() {
             try {
+                this.loading = true
                 const access_token = localStorage.getItem("access_token");
                 const { data: categories } = await this.get("categories", {
                     access_token,
@@ -33,6 +35,8 @@ export default {
                 this.categories = categories.data;
             } catch (error) {
                 console.log(error);
+            } finally {
+                this.loading = false
             }
         },
         async deleteCategory(id) {
@@ -65,18 +69,10 @@ export default {
 
             <div class="col-span-4 border-t-2 border-gray-50">
                 <div class="col-span-4 grid gap-12 padding-section">
-                    <CategoryList
-                        v-if="pageCategory === 'list'"
-                        :categories="categories"
-                        :deleteCategory="deleteCategory"
-                        @change-category="changeCategory"
-                    />
-                    <CategoryAdd
-                        v-else-if="pageCategory === 'add'"
-                        :post="post"
-                        :getCategories="getCategories"
-                        @change-category="changeCategory"
-                    />
+                    <CategoryList v-if="pageCategory === 'list'" :loading="loading" :categories="categories"
+                        :deleteCategory="deleteCategory" @change-category="changeCategory" />
+                    <CategoryAdd v-else-if="pageCategory === 'add'" :post="post" :getCategories="getCategories"
+                        @change-category="changeCategory" />
                 </div>
             </div>
         </div>

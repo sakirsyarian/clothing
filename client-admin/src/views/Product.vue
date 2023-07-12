@@ -14,9 +14,10 @@ export default {
         ProductEdit,
     },
     emits: ["change"],
-    props: ["changePage", "get", "post", "patch", "put", "delete"],
+    props: ["changePage", "get", "post", "patch", "put", "delete", "errorMessage"],
     data() {
         return {
+            user: {},
             product: {},
             products: [],
             pageProduct: "list",
@@ -36,9 +37,11 @@ export default {
                     access_token,
                 });
 
+                this.user = product.user;
                 this.products = product.data;
             } catch (error) {
                 console.log(error);
+                this.errorMessage(error)
             }
         },
         async deleteProduct(id) {
@@ -71,7 +74,7 @@ export default {
 
             <div class="col-span-4 border-t-2 border-gray-50">
                 <div class="col-span-4 grid gap-12 padding-section">
-                    <ProductList v-if="pageProduct === 'list'" :get="get" :patch="patch" :products="products"
+                    <ProductList v-if="pageProduct === 'list'" :get="get" :patch="patch" :user="user" :products="products"
                         :getProducts="getProducts" :deleteProduct="deleteProduct" @get-product="getProduct"
                         @change-product="changeProduct" />
                     <ProductAdd v-else-if="pageProduct === 'add'" :get="get" :post="post" :getProducts="getProducts"
