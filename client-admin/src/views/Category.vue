@@ -1,4 +1,5 @@
 <script>
+import Loading from 'vue-loading-overlay';
 import Navbar from "../components/Navbar.vue";
 import Sidebar from "../components/Sidebar.vue";
 import CategoryList from "../components/categories/CategoryList.vue";
@@ -6,16 +7,17 @@ import CategoryAdd from "../components/categories/CategoryAdd.vue";
 
 export default {
     components: {
+        Loading,
         Navbar,
         Sidebar,
         CategoryList,
         CategoryAdd,
     },
     emits: ["change"],
-    props: ["changePage", "get", "post", "delete"],
+    props: ["changePage", "get", "post", "delete", "errorMessage"],
     data() {
         return {
-            loading: false,
+            isLoading: false,
             categories: [],
             pageCategory: "list",
         };
@@ -26,7 +28,8 @@ export default {
         },
         async getCategories() {
             try {
-                this.loading = true
+                this.isLoading = true
+
                 const access_token = localStorage.getItem("access_token");
                 const { data: categories } = await this.get("categories", {
                     access_token,
@@ -35,9 +38,11 @@ export default {
                 this.categories = categories.data;
             } catch (error) {
                 console.log(error);
+                this.errorMessage(error)
             } finally {
-                this.loading = false
+                this.isLoading = false
             }
+
         },
         async deleteCategory(id) {
             try {
@@ -59,6 +64,8 @@ export default {
 </script>
 
 <template>
+    <loading v-model:active="isLoading" :can-cancel="false" :is-full-page="true" />
+
     <header class="mx-auto top-0 z-10 container sticky bg-white">
         <Navbar @change="changePage" />
     </header>
@@ -69,8 +76,8 @@ export default {
 
             <div class="col-span-4 border-t-2 border-gray-50">
                 <div class="col-span-4 grid gap-12 padding-section">
-                    <CategoryList v-if="pageCategory === 'list'" :loading="loading" :categories="categories"
-                        :deleteCategory="deleteCategory" @change-category="changeCategory" />
+                    <CategoryList v-if="pageCategory === 'list'" :categories="categories" :deleteCategory="deleteCategory"
+                        @change-category="changeCategory" />
                     <CategoryAdd v-else-if="pageCategory === 'add'" :post="post" :getCategories="getCategories"
                         @change-category="changeCategory" />
                 </div>

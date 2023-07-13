@@ -71,6 +71,9 @@ export default {
                     </tr>
                 </thead>
                 <tbody>
+                    <tr v-if="!products.length">
+                        <td class="p-5 text-center text-red-500 border" colspan="8">No data available</td>
+                    </tr>
                     <tr class="bg-white border-b" v-for="(product, index) in products" :key="product.id">
                         <td class="px-6 py-4">
                             {{ index + 1 }}

@@ -86,8 +86,9 @@ export default {
     <Home v-else-if="page === 'Home'" :get="getAjax" @change="changePage" :changePage="changePage"
         :errorMessage="errorMessage" />
     <Category v-else-if="page === 'Category'" :get="getAjax" :post="postAjax" :delete="deleteAjax" @change="changePage"
-        :changePage="changePage" />
+        :changePage="changePage" :errorMessage="errorMessage" />
     <Product v-else-if="page === 'Product'" :get="getAjax" :post="postAjax" :patch="patchAjax" :put="putAjax"
         :delete="deleteAjax" @change="changePage" :changePage="changePage" :errorMessage="errorMessage" />
-    <Log v-else-if="page === 'Log'" :get="getAjax" @change="changePage" :changePage="changePage" />
+    <Log v-else-if="page === 'Log'" :get="getAjax" @change="changePage" :changePage="changePage"
+        :errorMessage="errorMessage" />
 </template>
