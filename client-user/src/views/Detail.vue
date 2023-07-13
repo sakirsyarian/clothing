@@ -12,6 +12,10 @@ export default {
             return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(value)
         },
         async getDetail() {
+            let loader = this.$loading.show({
+                canCancel: true,
+            });
+
             try {
                 const access_token = localStorage.getItem('access_token')
                 const { data: product } = await getAjax(
@@ -22,16 +26,13 @@ export default {
                 this.detail = product.data
             } catch (error) {
                 console.log(error);
+            } finally {
+                loader.hide()
             }
         },
     },
     created() {
-        this.$watch(
-            () => this.$route.params,
-            () => {
-                this.getDetail()
-            }, { immediate: true }
-        )
+        this.getDetail()
     },
 }
 </script>

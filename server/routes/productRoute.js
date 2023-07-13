@@ -13,6 +13,6 @@ router.patch('/products/:id', ProductController.productPatch)
 router.delete('/products/:id', ProductController.productDestroy)
 
 // client for customer
-router.get('/customers/products', ProductController.customerProductFindAll)
+router.get('/customer/products', ProductController.customerProductFindAll)
 
 module.exports = router

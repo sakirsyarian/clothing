@@ -16,7 +16,7 @@ export default {
 
 <template>
     <section class="container">
-        <p v-if="!bookmark.length" class="font-semibold text-xl text-red-500">404 Not Found!</p>
+        <p v-if="!bookmark.length" class="font-semibold text-center text-xl text-red-500">404 Not Found!</p>
 
         <div class="grid grid-cols-4 gap-4">
             <div v-for="product in bookmark" :key="product.id"

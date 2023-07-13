@@ -15,7 +15,7 @@ const useProductStore = defineStore('product', {
             try {
                 const access_token = localStorage.getItem('access_token')
                 const { data: product } = await getAjax(
-                    'customers/products',
+                    'customer/products',
                     { access_token },
                 )
 

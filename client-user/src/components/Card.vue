@@ -46,7 +46,7 @@ export default {
 </script>
 
 <template>
-    <p v-if="!products.length" class="font-semibold text-xl text-red-500">404 Not Found!</p>
+    <p v-if="!products.length" class="font-semibold text-center text-xl text-red-500">404 Not Found!</p>
     <div v-for="(product, index) in products" :key="product.id"
         class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
         <router-link :to="'/detail/' + product.id">

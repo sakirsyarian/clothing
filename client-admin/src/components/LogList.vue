@@ -33,6 +33,7 @@ export default {
                         <th scope="col" class="px-6 py-3">No</th>
                         <th scope="col" class="px-6 py-3">Title</th>
                         <th scope="col" class="px-6 py-3">Description</th>
+                        <th scope="col" class="px-6 py-3">Updated By</th>
                         <th scope="col" class="px-6 py-3">Created</th>
                     </tr>
                 </thead>
@@ -49,6 +50,9 @@ export default {
                         </td>
                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             {{ log.description }}
+                        </td>
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            {{ log.updatedBy }}
                         </td>
                         <td class="px-6 py-4">
                             {{ localDate(index) }}

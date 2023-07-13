@@ -10,13 +10,27 @@ export default {
     },
     methods: {
         async handlerSubmit() {
+            let loader = this.$loading.show({
+                canCancel: true,
+            });
+
             try {
                 await postAjax('customer/signup', null,
                     { email: this.email, password: this.password })
 
+                this.$toast.success('Create a new account', { position: 'top-right' })
                 this.$router.push('/signin')
             } catch (error) {
                 console.log(error);
+
+                if (error.response.status === 400) {
+                    const errorMessage = error.response.data.message
+                    errorMessage.map(err => {
+                        this.$toast.error(err, { position: 'top-right', queue: true })
+                    })
+                }
+            } finally {
+                loader.hide()
             }
         }
     }

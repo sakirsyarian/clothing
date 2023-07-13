@@ -5,19 +5,30 @@ export default {
     data() {
         return {
             email: 'admin@mail.com',
-            password: 'admin'
+            password: 'admin',
         }
     },
     methods: {
         async handlerSubmit() {
+            let loader = this.$loading.show({
+                canCancel: true,
+            });
+
             try {
                 const { data: user } = await postAjax('customer/signin', null,
                     { email: this.email, password: this.password })
 
                 localStorage.setItem('access_token', user.access_token)
+
+                this.$toast.success('Signin successfully', { position: 'top-right' })
                 this.$router.push('/')
             } catch (error) {
                 console.log(error);
+
+                const errorMessage = error.response.data.message
+                this.$toast.error(errorMessage, { position: 'top-right' })
+            } finally {
+                loader.hide()
             }
         }
     }
@@ -27,7 +38,7 @@ export default {
 <template>
     <section class="container h-screen flex justify-center items-center">
         <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 ">
-            <form @submit.prevent="handlerSubmit" class="space-y-6" action="#">
+            <form @submit.prevent="handlerSubmit" ref="formContainer" class="space-y-6">
                 <h5 class="text-xl font-medium text-gray-900">Sign in to our platform</h5>
                 <div>
                     <label for="email" class="form-label">Email</label>
