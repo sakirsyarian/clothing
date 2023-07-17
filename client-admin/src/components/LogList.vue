@@ -39,7 +39,7 @@ export default {
                 </thead>
                 <tbody>
                     <tr v-if="!logs.length">
-                        <td class="p-5 text-center text-red-500 border" colspan="4">No data available</td>
+                        <td class="p-5 text-center text-red-500 border" colspan="5">No data available</td>
                     </tr>
                     <tr class="bg-white border-b" v-for="(log, index) in logs" :key="log.id">
                         <td class="px-6 py-4">

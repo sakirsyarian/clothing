@@ -5,9 +5,25 @@ import useProductStore from '../stores/product'
 export default {
     props: ['products'],
     computed: {
-        ...mapWritableState(useProductStore, ['bookmark'])
+        ...mapWritableState(useProductStore, ['bookmark', 'shoppingCart'])
     },
     methods: {
+        order(value, index) {
+            const found = this.shoppingCart.find(el => el.id === value)
+
+            if (!found) {
+                return this.shoppingCart.push({
+                    id: value,
+                    name: this.products[index].name,
+                    image: this.products[index].image,
+                    description: this.products[index].description,
+                    price: this.products[index].price,
+                    quantity: 1
+                })
+            }
+
+            return found.quantity += 1
+        },
         makeBook(value, index) {
             const svg = document.getElementById(value)
             const getFill = svg.getAttribute('fill')
@@ -71,6 +87,7 @@ export default {
                 {{ product.description }}
             </p>
             <p class="font-medium text-green-400"> {{ formatCurrency(product.price) }}</p>
+            <button @click="order(product.id, index)" class="mt-5 w-full btn-login">Order</button>
         </div>
     </div>
 </template>

@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Detail from '../views/Detail.vue'
 import About from '../views/About.vue'
 import Favorite from '../views/Favorite.vue'
+import Shop from '../views/Shop.vue'
 import SignIn from '../views/SignIn.vue'
 import SignUp from '../views/SignUp.vue'
 import NotFound from '../views/NotFound.vue'
@@ -49,6 +50,11 @@ const routes = [
                 path: 'favorite',
                 name: 'Favorite',
                 component: Favorite
+            },
+            {
+                path: 'shop',
+                name: 'Shopping',
+                component: Shop
             }
         ]
     },

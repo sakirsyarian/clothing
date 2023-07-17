@@ -7,6 +7,7 @@ const useProductStore = defineStore('product', {
             search: '',
             products: [],
             bookmark: [],
+            shoppingCart: [],
             pagination: {}
         }
     },

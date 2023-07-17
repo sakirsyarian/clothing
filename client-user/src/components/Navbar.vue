@@ -1,16 +1,21 @@
 <script>
 import { initDropdowns } from "flowbite";
+import { mapState } from 'pinia'
+import useProductStore from '../stores/product'
 
 export default {
-    mounted() {
-        initDropdowns();
+    computed: {
+        ...mapState(useProductStore, ['shoppingCart'])
     },
     methods: {
         signOut() {
             localStorage.clear()
             this.$router.push('/signin')
         }
-    }
+    },
+    mounted() {
+        initDropdowns();
+    },
 };
 </script>
 
@@ -23,6 +28,22 @@ export default {
             </router-link>
 
             <div class="flex md:order-2">
+                <router-link to="/shop" class="flex items-center">
+                    <button class="mr-5 flex items-center">
+                        <span
+                            class="bg-blue-100 text-blue-800 text-xs font-medium mr-1 px-2.5 py-0.5 rounded border border-blue-400">
+                            {{ shoppingCart.length }}
+                        </span>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                        </svg>
+                    </button>
+                </router-link>
+
+
                 <button @click="signOut()" class="btn-login">
                     Sign out
                 </button>

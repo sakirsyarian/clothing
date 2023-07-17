@@ -30,7 +30,45 @@ export default {
             } finally {
                 loader.hide()
             }
-        }
+        },
+        googleButton() {
+            google.accounts.id.initialize({
+                client_id: "72122631237-lknejvdtsjrildb7s32s208kr9g64dd0.apps.googleusercontent.com",
+                callback: this.handleCredentialResponse,
+            });
+
+            google.accounts.id.renderButton(
+                document.getElementById("buttonGoogle"),
+                { theme: "filled_blue", size: "large", width: 320 }
+            );
+        },
+        async handleCredentialResponse(response) {
+            let loader = this.$loading.show({
+                canCancel: true,
+            });
+
+            try {
+                const { data: user } = await postAjax(
+                    "google",
+                    { google_token: response.credential }
+                );
+
+                localStorage.setItem("access_token", user.access_token);
+
+                this.$toast.success('Signin successfully', { position: 'top-right' })
+                this.$router.push('/')
+            } catch (error) {
+                console.log(error);
+
+                const errorMessage = error.response.data.message
+                this.$toast.error(errorMessage, { position: 'top-right' })
+            } finally {
+                loader.hide()
+            }
+        },
+    },
+    mounted() {
+        this.googleButton()
     }
 }
 </script>
@@ -49,10 +87,18 @@ export default {
                     <input type="password" name="password" class="form-input" v-model="password">
                 </div>
 
-                <button type="submit"
-                    class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login
-                    to your account
-                </button>
+
+
+                <div class="space-y-2 text-center">
+                    <button type="submit"
+                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login
+                        to your account
+                    </button>
+                    <span>or</span>
+                    <div id="buttonGoogle"></div>
+                </div>
+
+
 
                 <div class="text-sm font-medium text-gray-500">
                     Not registered?
