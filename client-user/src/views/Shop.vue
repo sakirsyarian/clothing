@@ -2,6 +2,8 @@
 import { mapWritableState } from 'pinia';
 import useProductStore from '../stores/product';
 
+import { postAjax, getAjax } from '../helpers/ajax';
+
 export default {
     computed: {
         ...mapWritableState(useProductStore, ['shoppingCart']),
@@ -10,7 +12,6 @@ export default {
                 return total + (product.quantity * product.price)
             }, 0)
         }
-
     },
     methods: {
         deleteProduct(id) {
@@ -19,6 +20,48 @@ export default {
         },
         formatCurrency(value) {
             return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(value)
+        },
+        async checkout() {
+            try {
+                if (!this.shoppingCart.length) {
+                    this.$toast.error('Cart is empty', { position: 'top-right' })
+                    return
+                }
+
+                const access_token = localStorage.getItem('access_token')
+                const { data: midtrans } = await postAjax('midtrans-token', { access_token }, {
+                    shoppingCart: this.shoppingCart
+                })
+
+                const toast = this.$toast
+                const router = this.$router
+                let cart = this.shoppingCart
+
+
+                window.snap.pay(midtrans.data.token, {
+                    onSuccess: function (result) {
+                        /* You may add your own implementation here */
+                        cart.length = 0;
+
+                        router.push('/')
+                        toast.success('Payment success!', { position: 'top-right' })
+                    },
+                    onPending: function (result) {
+                        /* You may add your own implementation here */
+                        alert("wating your payment!"); console.log(result);
+                    },
+                    onError: function (result) {
+                        /* You may add your own implementation here */
+                        alert("payment failed!"); console.log(result);
+                    },
+                    onClose: function () {
+                        /* You may add your own implementation here */
+                        toast.error('Closed without finishing the payment', { position: 'top-right' })
+                    }
+                })
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 }
@@ -88,7 +131,7 @@ export default {
                     Total : <span class=" text-green-400"> {{ formatCurrency(total) }}</span>
                 </p>
 
-                <button @click="" class="mt-10 w-full btn-login">Chcekout</button>
+                <button @click="checkout()" class="mt-10 w-full btn-login">Checkout</button>
 
             </div>
         </div>
