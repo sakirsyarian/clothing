@@ -37,7 +37,6 @@ export default {
                 const router = this.$router
                 let cart = this.shoppingCart
 
-
                 window.snap.pay(midtrans.data.token, {
                     onSuccess: function (result) {
                         /* You may add your own implementation here */

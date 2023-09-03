@@ -4,6 +4,10 @@
         "image": "tshirt.png"
     },
     {
+        "name": "Premium",
+        "image": "premium.png"
+    },
+    {
         "name": "Hoodie",
         "image": "hoodie.png"
     },
